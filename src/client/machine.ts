@@ -36,6 +36,7 @@ export type GameContext = {
 type GameEvent =
   | { type: 'START' }
   | { type: 'EXIT_LEVEL' }
+  | { type: 'RESTORE_SCORES'; scores: number[] }
   | { type: 'SELECT_LEVEL'; level: number }
   | { type: 'SUBMIT'; emojiIndex: number }
   | { type: 'SLIDE_DONE' };
@@ -124,6 +125,13 @@ const gameMachine = setup({
 
       return { ownScores };
     }),
+    restoreScores: assign(({ event }) => {
+      if (event.type !== 'RESTORE_SCORES') {
+        return {};
+      }
+
+      return { ownScores: event.scores };
+    }),
   },
   guards: {
     canSelectLevel: ({ context, event }) =>
@@ -145,6 +153,11 @@ const gameMachine = setup({
     currentRound: emptyRound,
     lastSubmittedEmojiIndex: null,
     lastRoundResult: null,
+  },
+  on: {
+    RESTORE_SCORES: {
+      actions: 'restoreScores',
+    },
   },
   states: {
     splash: {

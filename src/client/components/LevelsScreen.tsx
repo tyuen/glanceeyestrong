@@ -23,7 +23,7 @@ export function LevelsScreen({ ownScores, onSelectLevel }: LevelsScreenProps) {
 
             return (
               <button
-                className={`grid grid-cols-[6rem_1fr_6rem] items-center text-center p-4 disabled:cursor-not-allowed disabled:opacity-60 rounded-2xl ${styles.levelCard}`}
+                className={`grid grid-cols-[auto_1fr_auto] items-center text-center p-4 disabled:cursor-not-allowed disabled:opacity-60 rounded-2xl ${styles.levelCard}`}
                 disabled={!isUnlocked}
                 key={level.join('')}
                 onClick={() => onSelectLevel(index)}
@@ -33,7 +33,7 @@ export function LevelsScreen({ ownScores, onSelectLevel }: LevelsScreenProps) {
                     Level
                   </span>
                   <span
-                    className={`text-7xl/none ${!isUnlocked && 'opacity-50'}`}
+                    className={`text-2xl/none md:text-7xl/none ${!isUnlocked && 'opacity-50'}`}
                   >
                     {index + 1}
                   </span>
@@ -46,7 +46,7 @@ export function LevelsScreen({ ownScores, onSelectLevel }: LevelsScreenProps) {
                     Best
                   </span>
                   <span
-                    className={`text-7xl/none ${!isUnlocked && 'opacity-50'} ${styles.bestScoreValue}`}
+                    className={`text-2xl/none md:text-7xl/none ${!isUnlocked && 'opacity-50'} ${styles.bestScoreValue}`}
                   >
                     {ownScores[index] ?? 0}
                   </span>

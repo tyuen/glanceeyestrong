@@ -1,7 +1,7 @@
 .root {
   position: relative;
   height: 100vh;
-  background: black url(/livingroom.webp) center/cover no-repeat;
+  background: black url(/livingroom.webp) 35% / cover no-repeat;
   font-family:
     ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
@@ -33,17 +33,24 @@
   font-weight: 600;
   text-align: center;
   box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
   line-height: 1.25;
+  overflow-wrap: break-word;
 }
 
 .button {
   margin: 1rem auto 0;
   border: none;
   border-radius: 1rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
   background: rgb(251 191 36);
   font: inherit;
+}
+
+@media (min-width: 768px) {
+  .button {
+    padding: 0.75rem 1.5rem;
+  }
 }
 
 .button:active {

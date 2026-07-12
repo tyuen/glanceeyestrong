@@ -4,6 +4,6 @@ import tailwind from '@tailwindcss/vite';
 import { devvit } from '@devvit/start/vite';
 
 export default defineConfig({
-  plugins: [react(), tailwind()],
-  // plugins: [react(), tailwind(), devvit()],
+  // plugins: [react(), tailwind()],
+  plugins: [react(), tailwind(), devvit()],
 });

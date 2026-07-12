@@ -4,7 +4,7 @@ type EmojiStackProps = {
 
 export function EmojiStack({ emojis }: EmojiStackProps) {
   return (
-    <span className="flex items-center justify-center text-[clamp(6rem,17vw,7rem)] leading-none">
+    <span className="flex items-center justify-center text-[clamp(2rem,17vw,7rem)] leading-none">
       {emojis.map((emoji, index) => (
         <span
           className={[

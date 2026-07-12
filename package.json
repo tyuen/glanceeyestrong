@@ -2,7 +2,6 @@
   "private": true,
   "name": "glanceeyestrong",
   "version": "0.0.0",
-  "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {
     "build": "vite build",

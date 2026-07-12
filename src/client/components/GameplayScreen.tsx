@@ -71,20 +71,27 @@ export function GameplayScreen({
           <div
             className={`absolute inset-y-0 right-0 z-20 w-[calc((100%-var(--gap-width))/2)] ${styles.rightCurtain}`}
           />
+
+          <img
+            src="/avatar.webp"
+            alt="avatar"
+            className="absolute left-2 bottom-2 z-20 size-16 rounded-xl bg-red-500/50 border-red-900 border"
+          />
+          <div
+            className={`absolute right-2 bottom-2 z-20 flex justify-self-end gap-4 px-3 py-2 text-center rounded-xl ${styles.woodPanel}`}
+          >
+            <ScoreMetric label="Duration" value={<Countdown />} />
+            <ScoreMetric label="Level" value={context.currLevel + 1} />
+            <ScoreMetric label="Score" value={context.currLevelCorrect} />
+          </div>
         </div>
 
         <div
           className={`flex items-center justify-between gap-4 px-4 py-3 ${styles.woodPanel}`}
         >
-          <div className="flex-1 hidden md:flex">
-            <img
-              src="/avatar.webp"
-              alt="avatar"
-              className="size-20 rounded-xl bg-red-500/50 border-red-900 border"
-            />
-          </div>
+          <div className="flex-1" />
 
-          <div className="flex min-w-0 items-center self-stretch justify-start">
+          <div className="flex min-w-0 items-center justify-center flex-1 self-stretch">
             <AnswerButtons
               context={context}
               disabled={!isSliding}
@@ -93,15 +100,7 @@ export function GameplayScreen({
             />
           </div>
 
-          <div className="flex-1">
-            <div
-              className={`flex justify-self-end gap-4 px-3 py-2 text-center rounded-xl ${styles.woodPanel}`}
-            >
-              <ScoreMetric label="Duration" value={<Countdown />} />
-              <ScoreMetric label="Level" value={context.currLevel + 1} />
-              <ScoreMetric label="Score" value={context.currLevelCorrect} />
-            </div>
-          </div>
+          <div className="flex-1" />
         </div>
       </section>
     </main>
