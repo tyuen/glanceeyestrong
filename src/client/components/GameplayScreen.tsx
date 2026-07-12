@@ -76,7 +76,13 @@ export function GameplayScreen({
         <div
           className={`flex items-center justify-between gap-4 px-4 py-3 ${styles.woodPanel}`}
         >
-          <div className="flex-1" />
+          <div className="flex-1 hidden md:flex">
+            <img
+              src="/avatar.webp"
+              alt="avatar"
+              className="size-20 rounded-xl bg-red-500/50 border-red-900 border"
+            />
+          </div>
 
           <div className="flex min-w-0 items-center self-stretch justify-start">
             <AnswerButtons
