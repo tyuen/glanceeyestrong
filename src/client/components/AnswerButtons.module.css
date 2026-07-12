@@ -1,0 +1,23 @@
+.answerChoice {
+  border-color: rgb(82 82 91);
+}
+
+.answerButton {
+  background-color: rgb(24 24 27);
+}
+
+.answerButton:disabled {
+  color: rgb(212 212 216);
+}
+
+.correctAnswerButton {
+  background-color: rgb(20 83 45);
+}
+
+.wrongAnswerButton {
+  background-color: rgb(127 29 29);
+}
+
+.shortcutNumber {
+  color: rgb(228 228 231);
+}

@@ -1,0 +1,98 @@
+.playfield {
+  background-color: rgb(39 39 42);
+}
+
+.missedPlayfield {
+  background-color: rgb(127 29 29);
+}
+
+.wrongPlayfield {
+  background-color: rgb(127 29 29);
+}
+
+.bottomBar {
+  background-color: rgb(9 9 11);
+  border-color: rgb(82 82 91);
+}
+
+.metricsPanel {
+  background-color: rgb(24 24 27);
+  border-color: rgb(82 82 91);
+}
+
+.leftCurtain,
+.rightCurtain {
+  background-color: rgb(24 24 27);
+}
+
+.leftCurtain {
+  animation: left-curtain-enter 700ms ease-out both;
+  transform-origin: top;
+}
+
+.rightCurtain {
+  animation: right-curtain-enter 700ms ease-out both;
+  transform-origin: top;
+}
+
+.flyingEmoji {
+  animation-duration: var(--fly-duration);
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.flyingEmoji[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+.flyingEmoji[data-direction="right"] {
+  animation-name: fly-right;
+}
+
+.flyingEmoji[data-direction="left"] {
+  animation-name: fly-left;
+}
+
+@keyframes fly-right {
+  from {
+    left: -20%;
+    transform: translateY(-50%);
+  }
+
+  to {
+    left: 120%;
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes fly-left {
+  from {
+    left: 120%;
+    transform: translate(-100%, -50%);
+  }
+
+  to {
+    left: -20%;
+    transform: translate(-100%, -50%);
+  }
+}
+
+@keyframes left-curtain-enter {
+  from {
+    transform: translateX(-100%) skewX(-6deg);
+  }
+
+  to {
+    transform: translateX(0) skewX(0);
+  }
+}
+
+@keyframes right-curtain-enter {
+  from {
+    transform: translateX(100%) skewX(6deg);
+  }
+
+  to {
+    transform: translateX(0) skewX(0);
+  }
+}
