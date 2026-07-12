@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import styles from "../Shared.module.css";
+import type { ReactNode } from 'react';
 
 type ScoreMetricProps = {
   label: string;
@@ -9,7 +8,7 @@ type ScoreMetricProps = {
 export function ScoreMetric({ label, value }: ScoreMetricProps) {
   return (
     <div>
-      <p className={`text-xs font-bold ${styles.labelText}`}>{label}</p>
+      <p className="text-xs font-bold opacity-50">{label}</p>
       <p className="text-2xl font-bold">{value}</p>
     </div>
   );

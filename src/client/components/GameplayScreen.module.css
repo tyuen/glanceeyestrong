@@ -1,31 +1,59 @@
 .playfield {
-  background-color: rgb(39 39 42);
+  background: rgb(4, 36, 63) linear-gradient(0deg, black, transparent);
+  transition: background-color 0.3s;
 }
 
-.missedPlayfield {
-  background-color: rgb(127 29 29);
-}
-
+.missedPlayfield,
 .wrongPlayfield {
-  background-color: rgb(127 29 29);
+  background-color: rgb(188, 3, 3);
 }
 
-.bottomBar {
-  background-color: rgb(9 9 11);
-  border-color: rgb(82 82 91);
-}
-
-.metricsPanel {
-  background-color: rgb(24 24 27);
-  border-color: rgb(82 82 91);
+.woodPanel {
+  background:
+    linear-gradient(
+      -90deg,
+      rgb(70 39 19 / 0.28),
+      transparent 16%,
+      rgb(255 217 153 / 0.08) 34%,
+      transparent 54%,
+      rgb(32 18 10 / 0.3) 74%,
+      transparent
+    ),
+    linear-gradient(0deg, rgb(121 74 35), rgb(77 43 20) 48%, rgb(45 25 13));
+  border-color: rgb(123 78 39);
+  box-shadow:
+    inset 0 1px 0 rgb(255 235 190 / 0.18),
+    inset 0 8px 18px rgb(255 210 140 / 0.06),
+    inset 0 -10px 18px rgb(0 0 0 / 0.28);
 }
 
 .leftCurtain,
 .rightCurtain {
-  background-color: rgb(24 24 27);
+  background:
+    linear-gradient(
+      0deg,
+      rgb(0 0 0 / 0.2),
+      transparent 25%,
+      transparent 75%,
+      rgb(0 0 0 / 0.5)
+    ),
+    repeating-linear-gradient(
+      var(--curtain-gradient-direction, 90deg),
+      rgb(45 8 13) 0,
+      rgb(95 18 29) 10px,
+      rgb(139 26 43) 22px,
+      rgb(58 10 17) 34px,
+      rgb(119 23 38) 48px
+    );
+  box-shadow:
+    inset 14px 0 18px rgb(255 205 205 / 0.08),
+    inset -16px 0 28px rgb(0 0 0 / 0.35),
+    0 0 18px rgb(0 0 0 / 0.35);
 }
 
 .leftCurtain {
+  --curtain-gradient-direction: 270deg;
+
   animation: left-curtain-enter 700ms ease-out both;
   transform-origin: top;
 }
@@ -41,15 +69,15 @@
   animation-timing-function: linear;
 }
 
-.flyingEmoji[data-paused="true"] {
+.flyingEmoji[data-paused='true'] {
   animation-play-state: paused;
 }
 
-.flyingEmoji[data-direction="right"] {
+.flyingEmoji[data-direction='right'] {
   animation-name: fly-right;
 }
 
-.flyingEmoji[data-direction="left"] {
+.flyingEmoji[data-direction='left'] {
   animation-name: fly-left;
 }
 

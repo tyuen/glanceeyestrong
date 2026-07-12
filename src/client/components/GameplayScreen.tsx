@@ -1,11 +1,11 @@
-import type { CSSProperties } from "react";
-import { puzzles, levelsDuration } from "../levels";
-import type { GameContext } from "../machine";
-import sharedStyles from "../Shared.module.css";
-import { AnswerButtons } from "./AnswerButtons";
-import { Countdown } from "./Countdown";
-import styles from "./GameplayScreen.module.css";
-import { ScoreMetric } from "./ScoreMetric";
+import type { CSSProperties } from 'react';
+import { puzzles, levelsDuration } from '../levels';
+import type { GameContext } from '../machine';
+import sharedStyles from '../Shared.module.css';
+import { AnswerButtons } from './AnswerButtons';
+import { Countdown } from './Countdown';
+import styles from './GameplayScreen.module.css';
+import { ScoreMetric } from './ScoreMetric';
 
 type GameplayScreenProps = {
   context: GameContext;
@@ -24,23 +24,23 @@ export function GameplayScreen({
   onSlideDone,
   onSubmit,
 }: GameplayScreenProps) {
-  const levelEmojis = puzzles[context.currLevel];
+  const levelEmojis = puzzles[context.currLevel]!;
   const round = context.currentRound;
   const durationSeconds = Math.max(1.2, (levelsDuration * 10) / round.speed);
   const roundStyle = {
-    "--gap-width": `${round.gap}px`,
-    "--fly-duration": `${durationSeconds}s`,
+    '--gap-width': `${round.gap}px`,
+    '--fly-duration': `${durationSeconds}s`,
   } as CSSProperties;
   const playfieldClassName = [
-    "relative min-h-0 w-full flex-1 overflow-hidden",
+    'relative min-h-0 w-full flex-1 overflow-hidden',
     styles.playfield,
-    isShowingMissFeedback && context.lastRoundResult === "missed"
+    isShowingMissFeedback && context.lastRoundResult === 'missed'
       ? styles.missedPlayfield
-      : "",
-    isShowingMissFeedback && context.lastRoundResult === "wrong"
+      : '',
+    isShowingMissFeedback && context.lastRoundResult === 'wrong'
       ? styles.wrongPlayfield
-      : "",
-  ].join(" ");
+      : '',
+  ].join(' ');
 
   return (
     <main
@@ -74,8 +74,10 @@ export function GameplayScreen({
         </div>
 
         <div
-          className={`flex items-center justify-between gap-4 border-t px-4 py-3 ${styles.bottomBar}`}
+          className={`flex items-center justify-between gap-4 px-4 py-3 ${styles.woodPanel}`}
         >
+          <div className="flex-1" />
+
           <div className="flex min-w-0 items-center self-stretch justify-start">
             <AnswerButtons
               context={context}
@@ -85,12 +87,14 @@ export function GameplayScreen({
             />
           </div>
 
-          <div
-            className={`flex justify-self-end gap-4 border px-3 py-2 text-center ${styles.metricsPanel}`}
-          >
-            <ScoreMetric label="Duration" value={<Countdown />} />
-            <ScoreMetric label="Level" value={context.currLevel + 1} />
-            <ScoreMetric label="Score" value={context.currLevelCorrect} />
+          <div className="flex-1">
+            <div
+              className={`flex justify-self-end gap-4 px-3 py-2 text-center rounded-xl ${styles.woodPanel}`}
+            >
+              <ScoreMetric label="Duration" value={<Countdown />} />
+              <ScoreMetric label="Level" value={context.currLevel + 1} />
+              <ScoreMetric label="Score" value={context.currLevelCorrect} />
+            </div>
           </div>
         </div>
       </section>

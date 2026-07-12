@@ -14,7 +14,7 @@ export function LevelsScreen({ ownScores, onSelectLevel }: LevelsScreenProps) {
       <img
         src="/livingroom.webp"
         alt="banner"
-        className="h-[20vh] w-full object-cover object-[0_35%] grayscale-30"
+        className="h-[30vh] w-full object-cover object-[0_35%] mask-b-from-0"
       />
       <section className="mx-auto p-4 sm:p-8 flex w-full max-w-3xl flex-col gap-5 my-[5vh] text-white">
         <div className="grid grid-cols-1 gap-3">

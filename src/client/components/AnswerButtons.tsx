@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import type { GameContext } from "../machine";
-import styles from "./AnswerButtons.module.css";
+import { useEffect } from 'react';
+import type { GameContext } from '../machine';
+import styles from './AnswerButtons.module.css';
 
 type AnswerButtonsProps = {
   context: GameContext;
@@ -34,10 +34,10 @@ export function AnswerButtons({
       onSubmit(emojiIndex);
     }
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [disabled, emojis.length, onSubmit]);
 
@@ -45,9 +45,9 @@ export function AnswerButtons({
     <div className="flex h-full items-stretch gap-3">
       {emojis.map((emoji, index) => (
         <button
-          className={`flex aspect-square gap-0.5 flex-col items-center justify-center border p-1 leading-none text-white ${styles.answerChoice} ${getAnswerButtonClassName(
+          className={`flex aspect-square rounded-xl gap-0.5 flex-col items-center justify-center border p-1 leading-none text-white ${styles.answerChoice} ${getAnswerButtonClassName(
             context,
-            index,
+            index
           )}`}
           disabled={disabled}
           key={emoji}
@@ -68,7 +68,7 @@ export function AnswerButtons({
 
 function getAnswerButtonClassName(context: GameContext, index: number) {
   if (
-    context.lastRoundResult === "missed" &&
+    context.lastRoundResult === 'missed' &&
     context.currentRound.emojiIndex === index
   ) {
     return styles.wrongAnswerButton;
@@ -78,11 +78,11 @@ function getAnswerButtonClassName(context: GameContext, index: number) {
     return styles.answerButton;
   }
 
-  if (context.lastRoundResult === "correct") {
+  if (context.lastRoundResult === 'correct') {
     return styles.correctAnswerButton;
   }
 
-  if (context.lastRoundResult === "wrong") {
+  if (context.lastRoundResult === 'wrong') {
     return styles.wrongAnswerButton;
   }
 
