@@ -49,6 +49,7 @@
     inset 14px 0 18px rgb(255 205 205 / 0.08),
     inset -16px 0 28px rgb(0 0 0 / 0.35),
     0 0 18px rgb(0 0 0 / 0.35);
+  transition: width 0.3s;
 }
 
 .leftCurtain {

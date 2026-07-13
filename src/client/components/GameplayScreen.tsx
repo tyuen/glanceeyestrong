@@ -27,6 +27,7 @@ export function GameplayScreen({
   const levelEmojis = puzzles[context.currLevel]!;
   const round = context.currentRound;
   const durationSeconds = Math.max(1.2, (levelsDuration * 10) / round.speed);
+  const isEmojiVisible = isSliding || context.lastSubmittedEmojiIndex !== null;
   const roundStyle = {
     '--gap-width': `${round.gap}px`,
     '--fly-duration': `${durationSeconds}s`,
@@ -57,7 +58,7 @@ export function GameplayScreen({
         <div className={playfieldClassName} style={roundStyle}>
           <div
             className={`absolute top-1/2 z-10 text-[min(50vh,150px)] leading-none opacity-0 data-[active=true]:opacity-100 ${styles.flyingEmoji}`}
-            data-active={isSliding}
+            data-active={isEmojiVisible}
             data-direction={round.direction}
             data-paused={!isSliding}
             key={round.id}
