@@ -1,66 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useSelector } from '@xstate/react';
-import type { InitResponse, SaveScoresRequest } from '../shared/api';
 import { EndingScreen } from './components/EndingScreen';
 import { GameplayScreen } from './components/GameplayScreen';
 import { LevelsScreen } from './components/LevelsScreen';
 import { SplashScreen } from './components/SplashScreen';
 import { gameActor } from './machine';
-
-type InitResponseCandidate = {
-  type?: unknown;
-  scores?: unknown;
-};
-
-function isNumberArray(value: unknown): value is number[] {
-  return (
-    Array.isArray(value) &&
-    value.every((item) => typeof item === 'number' && Number.isFinite(item))
-  );
-}
-
-function isInitResponseCandidate(value: unknown): value is InitResponseCandidate {
-  return typeof value === 'object' && value !== null;
-}
-
-function isInitResponse(value: unknown): value is InitResponse {
-  return (
-    isInitResponseCandidate(value) &&
-    value.type === 'init' &&
-    isNumberArray(value.scores)
-  );
-}
-
-async function loadScores(): Promise<number[]> {
-  const response = await fetch('/api/init');
-
-  if (!response.ok) {
-    throw new Error(`Failed to load scores: ${response.status}`);
-  }
-
-  const payload: unknown = await response.json();
-
-  if (!isInitResponse(payload)) {
-    throw new Error('Invalid init response');
-  }
-
-  return payload.scores;
-}
-
-async function saveScores(scores: number[]): Promise<void> {
-  const body: SaveScoresRequest = { scores };
-  const response = await fetch('/api/scores', {
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to save scores: ${response.status}`);
-  }
-}
+import { loadScores } from './network/loadScores';
+import { saveScores } from './network/saveScores';
 
 export default function App() {
   const snapshot = useSelector(gameActor, (state) => state);
