@@ -1,5 +1,14 @@
 .playfield {
-  background: rgb(4, 36, 63) linear-gradient(0deg, black, transparent);
+  background: rgb(4, 36, 63)
+    linear-gradient(
+      0deg,
+      #222,
+      #080808 20%,
+      black 20%,
+      transparent 90%,
+      rgb(70 39 19) 90%,
+      rgb(45, 25, 12)
+    );
   transition: background-color 0.3s;
 }
 
