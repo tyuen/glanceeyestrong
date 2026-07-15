@@ -1,3 +1,5 @@
+import styles from './SplashScreen.module.css';
+
 type SplashScreenProps = {
   onStart: () => void;
 };
@@ -13,7 +15,9 @@ export function SplashScreen({ onStart }: SplashScreenProps) {
     >
       <div className="absolute top-0 right-[8%] h-full flex flex-col w-1/2 max-w-md">
         <div className="flex-1" />
-        <div className="flex flex-col items-center bg-white rounded-xl py-6 sm:py-10 px-3 sm:px-8 font-semibold shadow-2xl sm:text-lg md:text-xl leading-tight">
+        <div
+          className={`flex flex-col items-center bg-white rounded-xl py-6 sm:py-10 px-3 sm:px-8 font-semibold shadow-2xl sm:text-lg md:text-xl leading-tight ${styles.instructionsDialog}`}
+        >
           <h1 className="text-xl sm:text-2xl md:text-3xl/relaxed">
             Instructions:
           </h1>

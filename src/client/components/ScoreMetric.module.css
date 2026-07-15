@@ -1,0 +1,45 @@
+.animatedValue {
+  position: relative;
+  display: inline-grid;
+  min-width: 1ch;
+}
+
+.scoreValue {
+  grid-area: 1 / 1;
+}
+
+.scoreEnter {
+  opacity: 0;
+}
+
+.scoreEnterActive {
+  opacity: 1;
+  transition: opacity 100ms ease;
+}
+
+.scoreExit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.scoreExitActive {
+  opacity: 0;
+  animation: score-exit-float 500ms linear both;
+}
+
+@keyframes score-exit-float {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translateY(-4vh) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10vh) scale(1.2);
+  }
+}

@@ -83,7 +83,11 @@ export function GameplayScreen({
           >
             <ScoreMetric label="Duration" value={<Countdown />} />
             <ScoreMetric label="Level" value={context.currLevel + 1} />
-            <ScoreMetric label="Score" value={context.currLevelCorrect} />
+            <ScoreMetric
+              animate
+              label="Score"
+              value={context.currLevelCorrect}
+            />
           </div>
         </div>
 

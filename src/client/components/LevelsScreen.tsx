@@ -19,7 +19,7 @@ export function LevelsScreen({ ownScores, onSelectLevel }: LevelsScreenProps) {
 
             return (
               <button
-                className={`grid grid-cols-[auto_1fr_auto] items-center text-center p-4 disabled:cursor-not-allowed disabled:opacity-60 rounded-2xl ${styles.levelCard}`}
+                className={`grid grid-cols-[auto_1fr_auto] items-center text-center p-4 disabled:cursor-not-allowed disabled:opacity-60 enabled:border-black/50 enabled:border-b-2 rounded-2xl ${styles.levelCard}`}
                 disabled={!isUnlocked}
                 key={level.join('')}
                 onClick={() => onSelectLevel(index)}

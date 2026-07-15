@@ -1,0 +1,80 @@
+.emojiRain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rainEmoji {
+  position: absolute;
+  top: -14vmin;
+  width: 20vmin;
+  font-size: 20vmin;
+  line-height: 1;
+  text-align: center;
+  animation: emoji-rain-fall 1800ms linear both;
+  filter: drop-shadow(0 8px 10px rgb(0 0 0 / 0.35));
+}
+
+.rainEmoji:nth-child(1) {
+  left: 3%;
+  animation-delay: 0ms;
+}
+
+.rainEmoji:nth-child(2) {
+  left: 13%;
+  animation-delay: 260ms;
+}
+
+.rainEmoji:nth-child(3) {
+  left: 24%;
+  animation-delay: 520ms;
+}
+
+.rainEmoji:nth-child(4) {
+  left: 37%;
+  animation-delay: 120ms;
+}
+
+.rainEmoji:nth-child(5) {
+  left: 49%;
+  animation-delay: 380ms;
+}
+
+.rainEmoji:nth-child(6) {
+  left: 61%;
+  animation-delay: 640ms;
+}
+
+.rainEmoji:nth-child(7) {
+  left: 71%;
+  animation-delay: 220ms;
+}
+
+.rainEmoji:nth-child(8) {
+  left: 80%;
+  animation-delay: 480ms;
+}
+
+.rainEmoji:nth-child(9) {
+  left: 29%;
+  animation-delay: 740ms;
+}
+
+@keyframes emoji-rain-fall {
+  from {
+    transform: translateY(-12vmin) rotate(-12deg);
+    opacity: 0;
+  }
+
+  10%,
+  82% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(120vh) rotate(28deg);
+    opacity: 0;
+  }
+}

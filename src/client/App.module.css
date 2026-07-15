@@ -1,0 +1,32 @@
+.pageTransition {
+  min-height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.pageEnter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.pageEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+.pageExit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pageExitActive {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
