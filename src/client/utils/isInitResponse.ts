@@ -6,6 +6,7 @@ export function isInitResponse(value: unknown): value is InitResponse {
   return (
     isInitResponseCandidate(value) &&
     value.type === 'init' &&
-    isNumberArray(value.scores)
+    isNumberArray(value.scores) &&
+    isNumberArray(value.global_scores)
   );
 }

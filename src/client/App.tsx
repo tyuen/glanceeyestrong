@@ -25,9 +25,9 @@ export default function App() {
     let shouldRestore = true;
 
     void loadScores()
-      .then((scores) => {
+      .then(({ scores, globalScores }) => {
         if (shouldRestore) {
-          send({ type: 'RESTORE_SCORES', scores });
+          send({ type: 'RESTORE_SCORES', scores, globalScores });
         }
       })
       .catch((error: unknown) => {
@@ -44,7 +44,8 @@ export default function App() {
       return;
     }
 
-    const nextSavedScores = JSON.stringify(context.ownScores);
+    const score = context.ownScores[context.currLevel] ?? 0;
+    const nextSavedScores = `${context.currLevel}:${score}`;
 
     if (lastSavedScores.current === nextSavedScores) {
       return;
@@ -52,10 +53,14 @@ export default function App() {
 
     lastSavedScores.current = nextSavedScores;
 
-    saveScores(context.ownScores).catch((error: unknown) => {
-      console.error('Unable to save scores', error);
-    });
-  }, [context.ownScores, snapshot]);
+    saveScores(context.currLevel, score)
+      .then(({ scores, globalScores }) => {
+        send({ type: 'RESTORE_SCORES', scores, globalScores });
+      })
+      .catch((error: unknown) => {
+        console.error('Unable to save scores', error);
+      });
+  }, [context.currLevel, context.ownScores, send, snapshot]);
 
   let pageKey = 'gameplay';
   let pageRef = gameplayPageRef;
@@ -81,6 +86,7 @@ export default function App() {
     pageRef = levelsPageRef;
     page = (
       <LevelsScreen
+        globalScores={context.globalScores}
         ownScores={context.ownScores}
         onSelectLevel={(level) => send({ type: 'SELECT_LEVEL', level })}
       />

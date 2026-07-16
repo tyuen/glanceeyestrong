@@ -1,6 +1,11 @@
 import { isInitResponse } from '../utils/isInitResponse';
 
-export async function loadScores(): Promise<number[]> {
+export type LoadedScores = {
+  scores: number[];
+  globalScores: number[];
+};
+
+export async function loadScores(): Promise<LoadedScores> {
   const response = await fetch('/api/init');
 
   if (!response.ok) {
@@ -13,5 +18,8 @@ export async function loadScores(): Promise<number[]> {
     throw new Error('Invalid init response');
   }
 
-  return payload.scores;
+  return {
+    scores: payload.scores,
+    globalScores: payload.global_scores,
+  };
 }

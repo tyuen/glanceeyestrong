@@ -1,16 +1,18 @@
 export type InitResponse = {
   type: 'init';
   postId: string;
-  levels: string;
   scores: number[];
+  global_scores: number[];
   username: string;
 };
 
 export type SaveScoresRequest = {
-  scores: number[];
+  level: number;
+  score: number;
 };
 
 export type SaveScoresResponse = {
   type: 'scores-saved';
   scores: number[];
+  global_scores: number[];
 };

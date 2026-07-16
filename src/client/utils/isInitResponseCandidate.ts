@@ -1,6 +1,7 @@
 export type InitResponseCandidate = {
   type?: unknown;
   scores?: unknown;
+  global_scores?: unknown;
 };
 
 export function isInitResponseCandidate(

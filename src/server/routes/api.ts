@@ -13,32 +13,82 @@ type ErrorResponse = {
 
 export const api = new Hono();
 
-function normalizeScores(value: unknown): number[] {
-  if (!Array.isArray(value)) {
-    return [];
+const MAX_SCORES = 100;
+
+const K_SCORE = 'my_scores';
+const K_GLOBAL_SCORE = `global_scores`;
+
+function normalizeLevel(value: unknown): number | null {
+  if (
+    typeof value !== 'number' ||
+    !Number.isInteger(value) ||
+    value < 0 ||
+    value >= MAX_SCORES
+  ) {
+    return null;
   }
 
-  return value.map((score) =>
-    typeof score === 'number' && Number.isFinite(score)
-      ? Math.max(0, Math.floor(score))
-      : 0
-  );
+  return value;
 }
 
-function parseScores(value: string | undefined): number[] {
-  if (!value) {
-    return [];
+function normalizeScore(value: unknown): number {
+  const score = typeof value === 'string' ? Number(value) : value;
+
+  return typeof score === 'number' && Number.isFinite(score)
+    ? Math.max(0, Math.floor(score))
+    : 0;
+}
+
+function trimTrailingZeroes(scores: number[]): number[] {
+  let lastScoreIndex = scores.length - 1;
+
+  while (lastScoreIndex >= 0 && scores[lastScoreIndex] === 0) {
+    lastScoreIndex -= 1;
   }
 
-  try {
-    return normalizeScores(JSON.parse(value));
-  } catch {
-    return [];
-  }
+  return scores.slice(0, lastScoreIndex + 1);
+}
+
+function parseScoreFields(fields: Record<string, string>): number[] {
+  const scores: number[] = [];
+
+  Object.entries(fields).forEach(([level, score]) => {
+    const index = Number(level);
+
+    if (Number.isInteger(index) && index >= 0 && index < MAX_SCORES) {
+      scores[index] = normalizeScore(Number(score));
+    }
+  });
+
+  return trimTrailingZeroes(scores.map((score) => score ?? 0));
 }
 
 function getScoresKey(username: string): string {
-  return `scores:${username}`;
+  return `${K_SCORE}:${username}`;
+}
+
+async function getScores(key: string): Promise<number[]> {
+  return parseScoreFields(await redis.hGetAll(key));
+}
+
+async function setScore(
+  key: string,
+  level: number,
+  score: number
+): Promise<void> {
+  await redis.hSet(key, { [`${level}`]: `${score}` });
+}
+
+async function saveBestScore(
+  key: string,
+  level: number,
+  score: number
+): Promise<void> {
+  const currentScore = normalizeScore(await redis.hGet(key, `${level}`));
+
+  if (score > currentScore) {
+    await setScore(key, level, score);
+  }
 }
 
 api.get('/init', async (c) => {
@@ -56,18 +106,18 @@ api.get('/init', async (c) => {
   }
 
   try {
-    const [levels, username] = await Promise.all([
-      redis.get('levels'),
+    const [username, globalScores] = await Promise.all([
       reddit.getCurrentUsername(),
+      getScores(K_GLOBAL_SCORE),
     ]);
     const currentUsername = username ?? 'anonymous';
-    const scores = await redis.get(getScoresKey(currentUsername));
+    const scores = await getScores(getScoresKey(currentUsername));
 
     return c.json<InitResponse>({
       type: 'init',
       postId,
-      levels: levels ?? '',
-      scores: parseScores(scores),
+      scores,
+      global_scores: globalScores,
       username: currentUsername,
     });
   } catch (error) {
@@ -87,14 +137,32 @@ api.post('/scores', async (c) => {
   try {
     const input = await c.req.json<SaveScoresRequest>();
     const username = (await reddit.getCurrentUsername()) ?? 'anonymous';
-    const scores = normalizeScores(input.scores);
+    const level = normalizeLevel(input.level);
 
-    await redis.set(getScoresKey(username), JSON.stringify(scores));
+    if (level === null) {
+      return c.json<ErrorResponse>(
+        { status: 'error', message: 'Invalid score level' },
+        400
+      );
+    }
+
+    const score = normalizeScore(input.score);
+    const scoreKey = getScoresKey(username);
+
+    await Promise.all([
+      saveBestScore(scoreKey, level, score),
+      saveBestScore(K_GLOBAL_SCORE, level, score),
+    ]);
+    const [scores, globalScores] = await Promise.all([
+      getScores(scoreKey),
+      getScores(K_GLOBAL_SCORE),
+    ]);
 
     return c.json<SaveScoresResponse>(
       {
         type: 'scores-saved',
         scores,
+        global_scores: globalScores,
       },
       200
     );

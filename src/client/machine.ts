@@ -24,6 +24,7 @@ export type Round = {
 
 export type GameContext = {
   ownScores: number[];
+  globalScores: number[];
   currLevel: number;
   currLevelStartTime: number;
   currLevelRound: number;
@@ -36,7 +37,8 @@ export type GameContext = {
 type GameEvent =
   | { type: 'START' }
   | { type: 'EXIT_LEVEL' }
-  | { type: 'RESTORE_SCORES'; scores: number[] }
+  | { type: 'RESTORE_SCORES'; scores: number[]; globalScores: number[] }
+  | { type: 'RESTORE_GLOBAL_SCORES'; globalScores: number[] }
   | { type: 'SELECT_LEVEL'; level: number }
   | { type: 'SUBMIT'; emojiIndex: number }
   | { type: 'SLIDE_DONE' };
@@ -130,7 +132,17 @@ const gameMachine = setup({
         return {};
       }
 
-      return { ownScores: event.scores };
+      return {
+        ownScores: event.scores,
+        globalScores: event.globalScores,
+      };
+    }),
+    restoreGlobalScores: assign(({ event }) => {
+      if (event.type !== 'RESTORE_GLOBAL_SCORES') {
+        return {};
+      }
+
+      return { globalScores: event.globalScores };
     }),
   },
   guards: {
@@ -146,6 +158,7 @@ const gameMachine = setup({
   initial: 'splash',
   context: {
     ownScores: [],
+    globalScores: [],
     currLevel: 0,
     currLevelStartTime: 0,
     currLevelRound: 0,
@@ -157,6 +170,9 @@ const gameMachine = setup({
   on: {
     RESTORE_SCORES: {
       actions: 'restoreScores',
+    },
+    RESTORE_GLOBAL_SCORES: {
+      actions: 'restoreGlobalScores',
     },
   },
   states: {
