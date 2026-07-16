@@ -14,7 +14,7 @@
 
 .scoreEnterActive {
   opacity: 1;
-  transition: opacity 100ms ease;
+  transition: opacity 200ms ease;
 }
 
 .scoreExit {

@@ -1,7 +1,6 @@
 import type { CSSProperties } from 'react';
 import { puzzles, levelsDuration } from '../levels';
 import type { GameContext } from '../machine';
-import sharedStyles from '../Shared.module.css';
 import { AnswerButtons } from './AnswerButtons';
 import { Countdown } from './Countdown';
 import styles from './GameplayScreen.module.css';
@@ -44,9 +43,7 @@ export function GameplayScreen({
   ].join(' ');
 
   return (
-    <main
-      className={`relative flex h-svh flex-col text-white ${sharedStyles.appBackdrop}`}
-    >
+    <main className="relative flex h-svh flex-col text-white bg-stone-950">
       <button
         className="absolute left-0 top-0 z-50 flex h-12 w-12 items-center justify-center text-3xl/none text-white opacity-50"
         onClick={onExit}

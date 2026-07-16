@@ -1,5 +1,4 @@
 import { puzzles } from '../levels';
-import sharedStyles from '../Shared.module.css';
 import { EmojiStack } from './EmojiStack';
 import styles from './LevelsScreen.module.css';
 
@@ -25,9 +24,7 @@ export function LevelsScreen({ ownScores, onSelectLevel }: LevelsScreenProps) {
                 onClick={() => onSelectLevel(index)}
               >
                 <span className="flex flex-col items-center font-bold">
-                  <span className={`text-sm ${sharedStyles.labelText}`}>
-                    Level
-                  </span>
+                  <span className="text-sm text-stone-400">Level</span>
                   <span
                     className={`text-2xl/none md:text-7xl/none ${!isUnlocked && 'opacity-50'}`}
                   >
@@ -38,11 +35,9 @@ export function LevelsScreen({ ownScores, onSelectLevel }: LevelsScreenProps) {
                 <EmojiStack emojis={level} />
 
                 <span className="flex flex-col items-center font-bold">
-                  <span className={`text-sm ${sharedStyles.labelText}`}>
-                    Best
-                  </span>
+                  <span className="text-sm text-stone-400">Best</span>
                   <span
-                    className={`text-2xl/none md:text-7xl/none ${!isUnlocked && 'opacity-50'} ${styles.bestScoreValue}`}
+                    className={`text-2xl/none md:text-7xl/none ${!isUnlocked && 'opacity-50'}`}
                   >
                     {ownScores[index] ?? 0}
                   </span>

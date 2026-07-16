@@ -18,8 +18,8 @@ export function EndingScreen({ emojis, level, score }: EndingScreenProps) {
           </span>
         ))}
       </div>
-      <div className="flex-4" />
-      <section className="relative z-10 w-full p-8 text-center bg-amber-900/80 backdrop-sepia-100 shadow-black/50 shadow-xl">
+      <div className="flex-3" />
+      <section className="relative z-10 w-full p-8 text-center bg-amber-900/80 backdrop-sepia-100 shadow-black/20 shadow-xl">
         <p className="text-lg font-bold uppercase">Level {level} Score</p>
         <h1 className="mt-3 text-7xl font-bold">{score}</h1>
       </section>

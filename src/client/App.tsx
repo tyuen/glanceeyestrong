@@ -52,7 +52,7 @@ export default function App() {
 
     lastSavedScores.current = nextSavedScores;
 
-    void saveScores(context.ownScores).catch((error: unknown) => {
+    saveScores(context.ownScores).catch((error: unknown) => {
       console.error('Unable to save scores', error);
     });
   }, [context.ownScores, snapshot]);
