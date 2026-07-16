@@ -40,7 +40,7 @@ export function LevelsScreen({
                 <EmojiStack emojis={level} />
 
                 <span className="flex flex-col items-center font-bold">
-                  <span className="text-sm text-stone-400">Mine</span>
+                  <span className="text-sm text-stone-400">Me</span>
                   <span
                     className={`text-2xl/none md:text-7xl/none ${!isUnlocked && 'opacity-50'}`}
                   >
@@ -49,7 +49,7 @@ export function LevelsScreen({
                 </span>
 
                 <span className="flex flex-col items-center font-bold">
-                  <span className="text-sm text-stone-400">World</span>
+                  <span className="text-sm text-stone-400">Others</span>
                   <span
                     className={`text-2xl/none md:text-7xl/none ${!isUnlocked && 'opacity-50'}`}
                   >

@@ -1,28 +1,51 @@
 import styles from './Splash.module.css';
 
-import { context, requestExpandedMode } from '@devvit/web/client';
-import { StrictMode } from 'react';
+import { requestExpandedMode } from '@devvit/web/client';
+import { MouseEventHandler, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+
+const levelOneEmojis = ['🙈', '🙉', '🙊'];
+const centerEmoji = levelOneEmojis[1] ?? '🙉';
+
+const play: MouseEventHandler = (e) => {
+  requestExpandedMode(e.nativeEvent, 'App');
+};
 
 export const Splash = () => {
   return (
     <div className={styles.root}>
-      <div className={styles.sidebar}>
-        <div className={styles.flex1} />
-        <div className={styles.dialog}>
-          <div>
-            Is that {context?.username ?? 'a human'} or are my eyes deceiving
-            me?
+      <main className={styles.stage}>
+        <div className={styles.playfield}>
+          <div className={styles.leftCurtain} />
+          <div className={styles.emoji} onClick={play}>
+            {centerEmoji}
           </div>
-          <button
-            className={styles.button}
-            onClick={(e) => requestExpandedMode(e.nativeEvent, 'App')}
-          >
-            Tap to Play
-          </button>
+          <div className={styles.rightCurtain} />
+
+          <img
+            src="/avatar.webp"
+            alt=""
+            className={styles.avatar}
+            onClick={play}
+          />
         </div>
-        <div className={styles.flex2} />
-      </div>
+
+        <div className={styles.controlPanel}>
+          <div className={styles.panelSpacer} />
+          <div className={styles.answerButtons}>
+            {levelOneEmojis.map((emoji) => (
+              <button
+                className={styles.answerButton}
+                key={emoji}
+                onClick={play}
+              >
+                {emoji}
+              </button>
+            ))}
+          </div>
+          <div className={styles.panelSpacer} />
+        </div>
+      </main>
     </div>
   );
 };

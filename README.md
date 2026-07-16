@@ -8,7 +8,7 @@ The game is organized into emoji-themed levels. Each level contains three possib
 
 ## How to Play
 
-1. Open the game and choose `Pick a Level`.
+1. Open the game.
 2. Select an unlocked level from the level list.
 3. Watch the window carefully as an emoji passes by.
 4. Press or tap the matching emoji button before the round ends.

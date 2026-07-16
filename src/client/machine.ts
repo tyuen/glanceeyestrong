@@ -155,7 +155,7 @@ const gameMachine = setup({
   },
 }).createMachine({
   id: 'game',
-  initial: 'splash',
+  initial: 'levels',
   context: {
     ownScores: [],
     globalScores: [],
