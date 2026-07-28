@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { MouseEventHandler, useEffect, useRef } from 'react';
 import { useSelector } from '@xstate/react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import styles from './App.module.css';
@@ -10,6 +10,7 @@ import { puzzles } from './levels';
 import { gameActor } from './machine';
 import { loadScores } from './network/loadScores';
 import { saveScores } from './network/saveScores';
+import { requestExpandedMode, getWebViewMode } from '@devvit/web/client';
 
 export default function App() {
   const snapshot = useSelector(gameActor, (state) => state);
@@ -20,6 +21,13 @@ export default function App() {
   const gameplayPageRef = useRef<HTMLDivElement>(null);
   const levelsPageRef = useRef<HTMLDivElement>(null);
   const splashPageRef = useRef<HTMLDivElement>(null);
+
+  const onExitGamePlay: MouseEventHandler = (e) => {
+    send({ type: 'EXIT_LEVEL' });
+    if (getWebViewMode() === 'inline') {
+      requestExpandedMode(e.nativeEvent, 'App');
+    }
+  };
 
   useEffect(() => {
     let shouldRestore = true;
@@ -71,7 +79,7 @@ export default function App() {
         level: { playing: 'feedback' },
       })}
       isSliding={snapshot.matches({ level: { playing: 'sliding' } })}
-      onExit={() => send({ type: 'EXIT_LEVEL' })}
+      onExit={onExitGamePlay}
       onSlideDone={() => send({ type: 'SLIDE_DONE' })}
       onSubmit={(emojiIndex) => send({ type: 'SUBMIT', emojiIndex })}
     />

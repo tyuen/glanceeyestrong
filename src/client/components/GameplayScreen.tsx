@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, MouseEventHandler } from 'react';
 import { puzzles, levelsDuration } from '../levels';
 import type { GameContext } from '../machine';
 import { AnswerButtons } from './AnswerButtons';
@@ -10,7 +10,7 @@ type GameplayScreenProps = {
   context: GameContext;
   isShowingMissFeedback: boolean;
   isSliding: boolean;
-  onExit: () => void;
+  onExit: MouseEventHandler;
   onSlideDone: () => void;
   onSubmit: (emojiIndex: number) => void;
 };

@@ -155,15 +155,15 @@ const gameMachine = setup({
   },
 }).createMachine({
   id: 'game',
-  initial: 'level', // 'levels',
+  initial: document.title?.includes('Play') ? 'level' : 'levels', // 'levels',
   context: {
     ownScores: [],
     globalScores: [],
     currLevel: 0,
-    currLevelStartTime: Date.now(), // 0,
+    currLevelStartTime: 0,
     currLevelRound: 0,
     currLevelCorrect: 0,
-    currentRound: createRound(0, 0), // emptyRound,
+    currentRound: createRound(0, 0),
     lastSubmittedEmojiIndex: null,
     lastRoundResult: null,
   },
@@ -191,7 +191,7 @@ const gameMachine = setup({
       },
     },
     level: {
-      initial: 'playing', // 'starting',
+      initial: 'starting',
       on: {
         EXIT_LEVEL: '#game.levels',
       },
