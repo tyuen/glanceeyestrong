@@ -43,14 +43,14 @@ type GameEvent =
   | { type: 'SUBMIT'; emojiIndex: number }
   | { type: 'SLIDE_DONE' };
 
-const emptyRound: Round = {
-  id: 0,
-  emoji: puzzles[0]![0]!,
-  emojiIndex: 0,
-  direction: 'right',
-  speed: startSpeed,
-  gap: startGap,
-};
+// const emptyRound: Round = {
+//   id: 0,
+//   emoji: puzzles[0]![0]!,
+//   emojiIndex: 0,
+//   direction: 'right',
+//   speed: startSpeed,
+//   gap: startGap,
+// };
 
 function createRound(level: number, round: number): Round {
   const levelPuzzles = puzzles[level] ?? puzzles[0]!;
@@ -155,15 +155,15 @@ const gameMachine = setup({
   },
 }).createMachine({
   id: 'game',
-  initial: 'levels',
+  initial: 'level', // 'levels',
   context: {
     ownScores: [],
     globalScores: [],
     currLevel: 0,
-    currLevelStartTime: 0,
+    currLevelStartTime: Date.now(), // 0,
     currLevelRound: 0,
     currLevelCorrect: 0,
-    currentRound: emptyRound,
+    currentRound: createRound(0, 0), // emptyRound,
     lastSubmittedEmojiIndex: null,
     lastRoundResult: null,
   },
@@ -191,7 +191,7 @@ const gameMachine = setup({
       },
     },
     level: {
-      initial: 'starting',
+      initial: 'playing', // 'starting',
       on: {
         EXIT_LEVEL: '#game.levels',
       },
