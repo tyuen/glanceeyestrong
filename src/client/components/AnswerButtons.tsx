@@ -49,6 +49,7 @@ export function AnswerButtons({
             context,
             index
           )}`}
+          data-testid={`answer-choice-${index}`}
           disabled={disabled}
           key={emoji}
           onClick={() => onSubmit(index)}

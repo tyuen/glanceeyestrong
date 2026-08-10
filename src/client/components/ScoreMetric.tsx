@@ -5,19 +5,21 @@ import styles from './ScoreMetric.module.css';
 type ScoreMetricProps = {
   animate?: boolean;
   label: string;
+  testId?: string;
   value: ReactNode;
 };
 
 export function ScoreMetric({
   animate = false,
   label,
+  testId,
   value,
 }: ScoreMetricProps) {
   const nodeRef = useRef<HTMLSpanElement>(null);
   const valueKey = String(value);
 
   return (
-    <div>
+    <div data-testid={testId}>
       <p className="text-xs font-bold opacity-50">{label}</p>
       <p className="text-2xl font-bold">
         {animate ? (

@@ -57,7 +57,9 @@ export function GameplayScreen({
             className={`absolute top-1/2 z-10 text-[min(50vh,150px)] leading-none opacity-0 data-[active=true]:opacity-100 ${styles.flyingEmoji}`}
             data-active={isEmojiVisible}
             data-direction={round.direction}
+            data-emoji-index={round.emojiIndex}
             data-paused={!isSliding}
+            data-testid="current-round-emoji"
             key={round.id}
             onAnimationEnd={onSlideDone}
           >
@@ -82,6 +84,7 @@ export function GameplayScreen({
             <ScoreMetric label="Level" value={context.currLevel + 1} />
             <ScoreMetric
               animate
+              testId="current-score"
               label="Score"
               value={context.currLevelCorrect}
             />
